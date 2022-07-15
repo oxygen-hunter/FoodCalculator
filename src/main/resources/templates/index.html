@@ -1,0 +1,259 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Bootstrap-ecommerce by Vosidiy">
+    <title>Food Counter</title>
+    <link rel="shortcut icon" type="image/x-icon" data-th-href="@{/images/logos/squanchy.jpg}">
+    <link rel="apple-touch-icon" sizes="180x180" data-th-href="@{/images/logos/squanchy.jpg}">
+    <link rel="icon" type="image/png" sizes="32x32" data-th-href="@{/images/logos/squanchy.jpg}">
+    <!-- jQuery -->
+    <!-- Bootstrap4 files-->
+    <link data-th-href="@{/css/bootstrap.css}" rel="stylesheet" type="text/css"/>
+    <link data-th-href="@{/css/ui.css}" rel="stylesheet" type="text/css"/>
+    <link data-th-href="@{fonts/fontawesome/css/fontawesome-all.min.css}" type="text/css" rel="stylesheet">
+    <link data-th-href="@{/css/OverlayScrollbars.css}" type="text/css" rel="stylesheet"/>
+    <!-- Font awesome 5 -->
+    <style>
+        .avatar {
+            vertical-align: middle;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+        }
+
+        .bg-default, .btn-default {
+            background-color: #f2f3f8;
+        }
+
+        .btn-error {
+            color: #ef5f5f;
+        }
+
+
+    </style>
+    <!-- custom style -->
+</head>
+<body>
+<section class="header-main">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-3">
+                <div class="brand-wrap">
+                    <img class="logo" data-th-src="@{/images/logos/squanchy.jpg}">
+                    <h2 class="logo-text">Food Counter</h2>
+                </div> <!-- brand-wrap.// -->
+            </div>
+            <div class="col-lg-6 col-sm-6">
+                <form action="#" class="search-wrap">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form> <!-- search-wrap .end// -->
+            </div> <!-- col.// -->
+            <div class="col-lg-3 col-sm-6">
+                <div class="widgets-wrap d-flex justify-content-end">
+                    <div class="widget-header">
+                        <a href="#" class="icontext">
+                            <a href="#" class="btn btn-primary m-btn m-btn--icon m-btn--icon-only">
+                                <i class="fa fa-home"></i>
+                            </a>
+                        </a>
+                    </div> <!-- widget .// -->
+                    <div class="widget-header dropdown">
+                        <a href="#" class="ml-3 icontext" data-toggle="dropdown" data-offset="20,10">
+                            <img data-th-src="@{/images/avatars/bshbsh.png}" class="avatar" alt="">
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="#"><i class="fa fa-sign-out-alt"></i> Logout</a>
+                        </div> <!--  dropdown-menu .// -->
+                    </div> <!-- widget  dropdown.// -->
+                </div>    <!-- widgets-wrap.// -->
+            </div> <!-- col.// -->
+        </div> <!-- row.// -->
+    </div> <!-- container.// -->
+</section>
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-content padding-y-sm bg-default ">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 card padding-y-sm card ">
+                <ul class="nav bg radius nav-pills nav-fill mb-3 bg" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active show" data-toggle="pill" href="#nav-tab-card">
+                            <i class="fa fa-tags"></i> All</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="pill" href="#nav-tab-paypal">
+                            <i class="fa fa-tags "></i> Category 1</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="pill" href="#nav-tab-bank">
+                            <i class="fa fa-tags "></i> Category 2</a></li>
+<!--                    <li class="nav-item">-->
+<!--                        <a class="nav-link" data-toggle="pill" href="#nav-tab-bank">-->
+<!--                            <i class="fa fa-tags "></i> Category 3</a></li>-->
+<!--                    <li class="nav-item">-->
+<!--                        <a class="nav-link" data-toggle="pill" href="#nav-tab-bank">-->
+<!--                            <i class="fa fa-tags "></i> Category 4</a></li>-->
+<!--                    <li class="nav-item">-->
+<!--                        <a class="nav-link" data-toggle="pill" href="#nav-tab-bank">-->
+<!--                            <i class="fa fa-tags "></i> Category 5</a></li>-->
+                </ul>
+                <span id="items">
+	<div class="row">
+<div class="col-md-3" data-th-each="food : ${foods}">
+	<figure class="card card-food">
+<!--		<span class="badge-new"> NEW </span>-->
+<!--		<div class="img-wrap">-->
+<!--			<img data-th-src="${food.getImage()}">-->
+<!--			<a class="btn-overlay" href="#"><i class="fa fa-search-plus"></i> Quick view</a>-->
+<!--		</div>-->
+		<figcaption class="info-wrap">
+			<a href="#" class="title"><span data-th-text="${food.getName()}"></span></a>
+			<div class="action-wrap">
+				<a data-th-href="@{/add/(id=${food.getId()})}" class="btn btn-primary btn-sm float-right"> <i
+                        class="fa fa-cart-plus"></i> Add </a>
+<!--				<div class="price-wrap h5">-->
+<!--					<span class="price-new" data-th-text="'￥100.00'"></span>-->
+<!--				</div> &lt;!&ndash; price-wrap.// &ndash;&gt;-->
+			</div> <!-- action-wrap -->
+		</figcaption>
+	</figure> <!-- card // -->
+</div> <!-- col // -->
+            </div>
+
+            </span>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+	<span id="cart">
+<table class="table table-hover shopping-cart-wrap">
+<thead class="text-muted">
+<tr>
+  <th scope="col">Item</th>
+  <th scope="col" width="120">Qty</th>
+  <th scope="col" width="120">Carbo</th>
+  <th scope="col" width="120">Protein</th>
+  <th scope="col" width="120">Fat</th>
+  <th scope="col" width="120">Heat</th>
+  <th scope="col" class="text-right" width="200">Delete</th>
+</tr>
+</thead>
+<tbody>
+
+<tr data-th-each="item : ${cart}">
+	<td>
+<figure class="media">
+	<div class="img-wrap"><img data-th-src="${item.getKey().getImage()}"
+                               class="img-thumbnail img-xs"></div>
+	<figcaption class="media-body">
+		<h6 class="title text-truncate"><span data-th-text="${item.getKey().getName()}"></span></h6>
+	</figcaption>
+</figure>
+	</td>
+	<td class="text-center">
+		<div class="m-btn-group m-btn-group--pill btn-group mr-2" role="group" aria-label="...">
+                                                                        <a data-th-href="@{/sub/(id=${item.getKey().getId()})}">
+																		<button
+                                                                                type="button"
+                                                                                class="m-btn btn btn-default"><i
+                                                                                class="fa fa-minus"></i></button></a>
+																		<button type="button"
+                                                                                class="m-btn btn btn-default"
+                                                                                disabled><span
+                                                                                data-th-text="${item.getValue()}"></span></button>
+                                                                        <a data-th-href="@{/add/(id=${item.getKey().getId()})}">
+                                                                        <button
+                                                                                type="button"
+                                                                                class="m-btn btn btn-default"><i
+                                                                                class="fa fa-plus"></i></button></a>
+																	</div>
+	</td>
+	<td>
+		<div class="price-wrap">
+			<var class="price"><span data-th-text="${item.getKey().getCarbo()}"></span></var>
+		</div> <!-- price-wrap .// -->
+	</td>
+    <td>
+		<div class="price-wrap">
+			<var class="price"><span data-th-text="${item.getKey().getProtein()}"></span></var>
+		</div> <!-- price-wrap .// -->
+	</td>
+    <td>
+		<div class="price-wrap">
+			<var class="price"><span data-th-text="${item.getKey().getFat()}"></span></var>
+		</div> <!-- price-wrap .// -->
+	</td>
+    <td>
+		<div class="price-wrap">
+			<var class="price"><span data-th-text="${item.getKey().getHeat()}"></span></var>
+		</div> <!-- price-wrap .// -->
+	</td>
+	<td class="text-right">
+	<a data-th-href="@{/remove/(id=${item.getKey().getId()})}" class="btn btn-outline-danger"> <i class="fa fa-trash"></i></a>
+	</td>
+</tr>
+</tbody>
+</table>
+</span>
+                </div> <!-- card.// -->
+                <div class="box">
+                    <dl class="dlist-align">
+                        <dt>Carbo:</dt>
+                        <dd class="text-right h4 b" data-th-text="${carbo}+'g'"></dd>
+                    </dl>
+                    <dl class="dlist-align">
+                        <dt>Protein:</dt>
+                        <dd class="text-right h4 b" data-th-text="${protein}+'g'"></dd>
+                    </dl>
+                    <dl class="dlist-align">
+                        <dt>Fat:</dt>
+                        <dd class="text-right h4 b" data-th-text="${fat}+'g'"></dd>
+                    </dl>
+                    <dl class="dlist-align">
+                        <dt>Heat:</dt>
+                        <dd class="text-right h4 b" data-th-text="${heat}+'kcal'"></dd>
+                    </dl>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <a data-th-href="@{/empty}" class="btn  btn-default btn-error btn-lg btn-block"><i
+                                    class="fa fa-times-circle "></i> Cancel </a>
+                        </div>
+                        <div class="col-md-6">
+                            <a data-th-href="@{/charge}" class="btn  btn-primary btn-lg btn-block"><i class="fa fa-shopping-bag"></i>
+                                Charge </a>
+                        </div>
+                    </div>
+                </div> <!-- box.// -->
+            </div>
+        </div>
+    </div><!-- container //  -->
+</section>
+<!-- ========================= SECTION CONTENT END// ========================= -->
+<script data-th-src="@{/js/jquery-2.0.0.min.js}" type="text/javascript"></script>
+<script data-th-src="@{/js/bootstrap.bundle.min.js}" type="text/javascript"></script>
+<script data-th-src="@{/js/OverlayScrollbars.js}" type="text/javascript"></script>
+<script>
+    $(function () {
+        //The passed argument has to be at least a empty object or a object with your desired options
+        //$("body").overlayScrollbars({ });
+        $("#items").height(552);
+        $("#items").overlayScrollbars({
+            overflowBehavior: {
+                x: "hidden",
+                y: "scroll"
+            }
+        });
+        $("#cart").height(445);
+        $("#cart").overlayScrollbars({});
+    });
+
+
+</script>
+</body>
+</html>

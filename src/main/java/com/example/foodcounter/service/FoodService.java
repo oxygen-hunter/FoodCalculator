@@ -13,6 +13,10 @@ public interface FoodService {
 
     void addProductById(String id, int quantity);
 
+    void removeProductById(String id);
+
+    void fillDataFromXlsx();
+
     Double getCarbo();
 
     Double getProtein();

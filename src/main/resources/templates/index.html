@@ -61,8 +61,8 @@
                 <div class="widgets-wrap d-flex justify-content-end">
                     <div class="widget-header">
                         <a href="#" class="icontext">
-                            <a href="#" class="btn btn-primary m-btn m-btn--icon m-btn--icon-only">
-                                <i class="fa fa-home"></i>
+                            <a data-th-href="@{/fillData}" class="btn btn-primary m-btn m-btn--icon m-btn--icon-only">
+                                <i class="fa fa-home"></i> FillData
                             </a>
                         </a>
                     </div> <!-- widget .// -->
@@ -136,7 +136,7 @@
 <thead class="text-muted">
 <tr>
   <th scope="col">Item</th>
-  <th scope="col" width="120">Qty</th>
+  <th scope="col" width="120">Quantity</th>
   <th scope="col" width="120">Carbo</th>
   <th scope="col" width="120">Protein</th>
   <th scope="col" width="120">Fat</th>
@@ -176,22 +176,22 @@
 	</td>
 	<td>
 		<div class="price-wrap">
-			<var class="price"><span data-th-text="${item.getKey().getCarbo()}"></span></var>
+			<var class="price"><span data-th-text="${item.getKey().getCarbo() * item.getValue().intValue()}+'g'"></span></var>
 		</div> <!-- price-wrap .// -->
 	</td>
     <td>
 		<div class="price-wrap">
-			<var class="price"><span data-th-text="${item.getKey().getProtein()}"></span></var>
+			<var class="price"><span data-th-text="${item.getKey().getProtein() * item.getValue().intValue()}+'g'"></span></var>
 		</div> <!-- price-wrap .// -->
 	</td>
     <td>
 		<div class="price-wrap">
-			<var class="price"><span data-th-text="${item.getKey().getFat()}"></span></var>
+			<var class="price"><span data-th-text="${item.getKey().getFat() * item.getValue().intValue()}+'g'"></span></var>
 		</div> <!-- price-wrap .// -->
 	</td>
     <td>
 		<div class="price-wrap">
-			<var class="price"><span data-th-text="${item.getKey().getHeat()}"></span></var>
+			<var class="price"><span data-th-text="${item.getKey().getHeat() * item.getValue().intValue()}+'kcal'"></span></var>
 		</div> <!-- price-wrap .// -->
 	</td>
 	<td class="text-right">

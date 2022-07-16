@@ -4,7 +4,15 @@ import com.example.foodcounter.model.Food;
 import com.example.foodcounter.repository.FoodRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import java.io.*;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.Iterator;
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -41,6 +49,38 @@ public class FoodServiceImpl implements FoodService {
     }
 
     @Override
+    public void removeProductById(String id) {
+        Food food = checkArgument(id);
+        cart.remove(food);
+    }
+
+    @Override
+    public void fillDataFromXlsx() {
+        try {
+            URL resource = this.getClass().getResource("/data/foods.xlsx");
+            assert resource != null;
+            File file = new File(resource.toURI());
+            FileInputStream excelFile = new FileInputStream(file);
+            Workbook workbook = new XSSFWorkbook(excelFile);
+            Sheet datatypeSheet = workbook.getSheetAt(0);
+            for (Row row : datatypeSheet) {
+                for (Cell cell : row) {
+                    if (cell.getCellType() == CellType.STRING) {
+                        System.out.print(cell.getStringCellValue() + "--");
+                    } else if (cell.getCellType() == CellType.NUMERIC) {
+                        System.out.print(cell.getNumericCellValue() + "--");
+                    }
+                }
+                System.out.println();
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("file not found");
+        } catch (URISyntaxException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public Iterable<Food> getFoods() {
         return repository.findAll();
     }
@@ -52,21 +92,37 @@ public class FoodServiceImpl implements FoodService {
 
     @Override
     public Double getCarbo() {
-        return 100.0;
+        double sum = 0;
+        for (var item : cart.entrySet()) {
+            sum += item.getValue() * item.getKey().getCarbo();
+        }
+        return sum;
     }
 
     @Override
     public Double getProtein() {
-        return 100.0;
+        double sum = 0;
+        for (var item : cart.entrySet()) {
+            sum += item.getValue() * item.getKey().getProtein();
+        }
+        return sum;
     }
 
     @Override
     public Double getFat() {
-        return 100.0;
+        double sum = 0;
+        for (var item : cart.entrySet()) {
+            sum += item.getValue() * item.getKey().getFat();
+        }
+        return sum;
     }
 
     @Override
     public Double getHeat() {
-        return 100.0;
+        double sum = 0;
+        for (var item : cart.entrySet()) {
+            sum += item.getValue() * item.getKey().getHeat();
+        }
+        return sum;
     }
 }

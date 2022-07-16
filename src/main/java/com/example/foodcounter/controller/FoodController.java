@@ -48,4 +48,30 @@ public class FoodController {
         }
         return "redirect:/";
     }
+
+    @GetMapping("/sub")
+    public String subById(@RequestParam(name = "id") String id) {
+        try {
+            foodService.addProductById(id, -1);
+        } catch (IllegalArgumentException e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
+        return "redirect:/";
+    }
+
+    @GetMapping("/remove")
+    public String removeById(@RequestParam(name = "id") String id) {
+        try {
+            foodService.removeProductById(id);
+        } catch (IllegalArgumentException e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
+        return "redirect:/";
+    }
+
+    @GetMapping("/fillData")
+    public String fillDataFromXlsx() {
+        foodService.fillDataFromXlsx();
+        return "redirect:/";
+    }
 }

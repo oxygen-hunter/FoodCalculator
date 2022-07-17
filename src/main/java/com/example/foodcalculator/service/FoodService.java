@@ -1,6 +1,6 @@
-package com.example.foodcounter.service;
+package com.example.foodcalculator.service;
 
-import com.example.foodcounter.model.Food;
+import com.example.foodcalculator.model.Food;
 
 import java.util.Map;
 import java.util.Set;
@@ -14,6 +14,8 @@ public interface FoodService {
     void addProductById(String id, int quantity);
 
     void removeProductById(String id);
+
+    void removeAll();
 
     void fillDataFromXlsx();
 

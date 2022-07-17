@@ -1,4 +1,4 @@
-package com.example.foodcounter.model;
+package com.example.foodcalculator.model;
 
 import lombok.*;
 

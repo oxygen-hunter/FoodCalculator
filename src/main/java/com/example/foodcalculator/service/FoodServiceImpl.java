@@ -1,19 +1,15 @@
-package com.example.foodcounter.service;
+package com.example.foodcalculator.service;
 
-import com.example.foodcounter.model.Food;
-import com.example.foodcounter.repository.FoodRepository;
+import com.example.foodcalculator.model.Food;
+import com.example.foodcalculator.repository.FoodRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.*;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.Iterator;
 import java.io.File;
 import java.io.FileInputStream;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -28,11 +24,12 @@ public class FoodServiceImpl implements FoodService {
     @Autowired
     public FoodServiceImpl(FoodRepository repository) {
         this.repository = repository;
-        Food[] foods = {
-                new Food("1", "牛肉盖浇饭", 10.0, 20.0, 30.0, 80.0),
-                new Food("2", "明治醇壹450ml", 22.5, 15, 15, 220)
-        };
-        repository.saveAll(Arrays.asList(foods));
+        fillDataFromXlsx();
+//        Food[] foods = {
+//                new Food("-1", "牛肉盖浇饭", 10.0, 20.0, 30.0, 80.0),
+//                new Food("-2", "明治醇壹450ml", 22.5, 15, 15, 220)
+//        };
+//        repository.saveAll(Arrays.asList(foods));
     }
 
     private Food checkArgument(String id) {
@@ -55,27 +52,42 @@ public class FoodServiceImpl implements FoodService {
     }
 
     @Override
+    public void removeAll() {
+        cart.clear();
+    }
+
+    @Override
     public void fillDataFromXlsx() {
+        FileInputStream fileInputStream = null;
         try {
-            URL resource = this.getClass().getResource("/data/foods.xlsx");
-            assert resource != null;
-            File file = new File(resource.toURI());
-            FileInputStream excelFile = new FileInputStream(file);
-            Workbook workbook = new XSSFWorkbook(excelFile);
-            Sheet datatypeSheet = workbook.getSheetAt(0);
-            for (Row row : datatypeSheet) {
-                for (Cell cell : row) {
-                    if (cell.getCellType() == CellType.STRING) {
-                        System.out.print(cell.getStringCellValue() + "--");
-                    } else if (cell.getCellType() == CellType.NUMERIC) {
-                        System.out.print(cell.getNumericCellValue() + "--");
-                    }
+//            URL resource = this.getClass().getResource("/data/foods.xlsx");
+//            assert resource != null;
+//            File file = new File(resource.toURI());
+            File file = new File("D:/Documents/Exercise-Docs/foods.xlsx");
+            fileInputStream = new FileInputStream(file);
+            Workbook workbook = new XSSFWorkbook(fileInputStream);
+            Sheet sheet = workbook.getSheetAt(0);
+            int rowNum = 0;
+            for (Row row : sheet) {
+                if (rowNum == 0) {
+                    rowNum++;
+                    continue;
                 }
-                System.out.println();
+                String id = row.getCell(0).getCellType() == CellType.STRING ?
+                        row.getCell(0).getStringCellValue() : String.valueOf(row.getCell(0).getNumericCellValue());
+                String name = row.getCell(1).getStringCellValue();
+                double carbo = row.getCell(2).getNumericCellValue();
+                double protein = row.getCell(3).getNumericCellValue();
+                double fat = row.getCell(4).getNumericCellValue();
+                double heat = row.getCell(5).getNumericCellValue();
+                Food food = new Food(id, name, carbo, protein, fat, heat);
+                repository.save(food);
+                //System.out.println(food);
             }
+            fileInputStream.close();
         } catch (FileNotFoundException e) {
             System.out.println("file not found");
-        } catch (URISyntaxException | IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

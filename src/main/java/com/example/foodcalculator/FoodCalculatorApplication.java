@@ -1,13 +1,13 @@
-package com.example.foodcounter;
+package com.example.foodcalculator;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class FoodCounterApplication {
+public class FoodCalculatorApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(FoodCounterApplication.class, args);
+        SpringApplication.run(FoodCalculatorApplication.class, args);
     }
 
 }

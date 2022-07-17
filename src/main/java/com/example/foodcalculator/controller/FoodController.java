@@ -1,7 +1,6 @@
-package com.example.foodcounter.controller;
+package com.example.foodcalculator.controller;
 
-import com.example.foodcounter.service.FoodService;
-import lombok.Getter;
+import com.example.foodcalculator.service.FoodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -69,9 +68,17 @@ public class FoodController {
         return "redirect:/";
     }
 
+    @GetMapping("/removeAll")
+    public String removeAll() {
+        foodService.removeAll();
+        return "redirect:/";
+    }
+
     @GetMapping("/fillData")
     public String fillDataFromXlsx() {
         foodService.fillDataFromXlsx();
         return "redirect:/";
     }
+
+
 }

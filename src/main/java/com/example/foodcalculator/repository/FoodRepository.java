@@ -1,7 +1,6 @@
-package com.example.foodcounter.repository;
+package com.example.foodcalculator.repository;
 
-import com.example.foodcounter.model.Food;
-import org.springframework.data.repository.CrudRepository;
+import com.example.foodcalculator.model.Food;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 

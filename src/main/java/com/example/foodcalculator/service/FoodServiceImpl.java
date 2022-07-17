@@ -10,6 +10,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.*;
 import java.io.File;
 import java.io.FileInputStream;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -60,10 +61,10 @@ public class FoodServiceImpl implements FoodService {
     public void fillDataFromXlsx() {
         FileInputStream fileInputStream = null;
         try {
-//            URL resource = this.getClass().getResource("/data/foods.xlsx");
-//            assert resource != null;
-//            File file = new File(resource.toURI());
-            File file = new File("D:/Documents/Exercise-Docs/foods.xlsx");
+            URL resource = this.getClass().getResource("/data/foods.xlsx");
+            assert resource != null;
+            File file = new File(resource.toURI());
+//            File file = new File("D:/Documents/Exercise-Docs/foods.xlsx");
             fileInputStream = new FileInputStream(file);
             Workbook workbook = new XSSFWorkbook(fileInputStream);
             Sheet sheet = workbook.getSheetAt(0);

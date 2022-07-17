@@ -59,21 +59,31 @@
             </div> <!-- col.// -->
             <div class="col-lg-3 col-sm-6">
                 <div class="widgets-wrap d-flex justify-content-end">
+<!--                    <div class="widget-header">-->
+<!--                        <a href="#" class="icontext">-->
+<!--                            <a data-th-href="@{/fillData}" class="btn btn-primary m-btn m-btn&#45;&#45;icon m-btn&#45;&#45;icon-only">-->
+<!--                                <i class="fa fa-home"></i> FillData-->
+<!--                            </a>-->
+<!--                        </a>-->
+<!--                    </div> &lt;!&ndash; widget .// &ndash;&gt;-->
                     <div class="widget-header">
-                        <a href="#" class="icontext">
-                            <a data-th-href="@{/fillData}" class="btn btn-primary m-btn m-btn--icon m-btn--icon-only">
-                                <i class="fa fa-home"></i> FillData
-                            </a>
+                        <a href="#" class="ml-3 icontext">
+                            <form method="post" th:action="@{/upload}" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <input type="file" name="file" class="form-control-file">
+                                </div>
+                                <button type="submit" class="btn btn-primary">上传食物文件</button>
+                            </form>
                         </a>
-                    </div> <!-- widget .// -->
-                    <div class="widget-header dropdown">
-                        <a href="#" class="ml-3 icontext" data-toggle="dropdown" data-offset="20,10">
-                            <img data-th-src="@{/images/avatars/bshbsh.png}" class="avatar" alt="">
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="#"><i class="fa fa-sign-out-alt"></i> Logout</a>
-                        </div> <!--  dropdown-menu .// -->
-                    </div> <!-- widget  dropdown.// -->
+                    </div>
+<!--                    <div class="widget-header dropdown">-->
+<!--                        <a href="#" class="ml-3 icontext" data-toggle="dropdown" data-offset="20,10">-->
+<!--                            <img data-th-src="@{/images/avatars/bshbsh.png}" class="avatar" alt="">-->
+<!--                        </a>-->
+<!--                        <div class="dropdown-menu dropdown-menu-right">-->
+<!--                            <a class="dropdown-item" href="#"><i class="fa fa-sign-out-alt"></i> Logout</a>-->
+<!--                        </div> &lt;!&ndash;  dropdown-menu .// &ndash;&gt;-->
+<!--                    </div> &lt;!&ndash; widget  dropdown.// &ndash;&gt;-->
                 </div>    <!-- widgets-wrap.// -->
             </div> <!-- col.// -->
         </div> <!-- row.// -->

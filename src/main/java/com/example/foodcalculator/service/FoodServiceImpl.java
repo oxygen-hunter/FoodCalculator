@@ -6,11 +6,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.io.File;
 import java.io.FileInputStream;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -23,14 +30,13 @@ public class FoodServiceImpl implements FoodService {
     private final Map<Food, Integer> cart = new HashMap<>();
 
     @Autowired
-    public FoodServiceImpl(FoodRepository repository) {
+    public FoodServiceImpl(FoodRepository repository) throws URISyntaxException {
         this.repository = repository;
-        fillDataFromXlsx();
-//        Food[] foods = {
-//                new Food("-1", "牛肉盖浇饭", 10.0, 20.0, 30.0, 80.0),
-//                new Food("-2", "明治醇壹450ml", 22.5, 15, 15, 220)
-//        };
-//        repository.saveAll(Arrays.asList(foods));
+//        URL resource = this.getClass().getResource("/data/foods.xlsx");
+//        assert resource != null;
+//        File file = new File(resource.toURI());
+////      File file = new File("D:/Documents/Exercise-Docs/foods.xlsx");
+//        fillDataFromXlsx(file);
     }
 
     private Food checkArgument(String id) {
@@ -58,13 +64,9 @@ public class FoodServiceImpl implements FoodService {
     }
 
     @Override
-    public void fillDataFromXlsx() {
+    public void fillDataFromXlsx(File file) {
         FileInputStream fileInputStream = null;
         try {
-            URL resource = this.getClass().getResource("/data/foods.xlsx");
-            assert resource != null;
-            File file = new File(resource.toURI());
-//            File file = new File("D:/Documents/Exercise-Docs/foods.xlsx");
             fileInputStream = new FileInputStream(file);
             Workbook workbook = new XSSFWorkbook(fileInputStream);
             Sheet sheet = workbook.getSheetAt(0);
@@ -89,6 +91,23 @@ public class FoodServiceImpl implements FoodService {
         } catch (FileNotFoundException e) {
             System.out.println("file not found");
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void uploadDataFromXlsx(MultipartFile file) {
+        // normalize the file path
+        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+
+        // save the file on the local file system
+        try {
+            String UPLOAD_DIR = "uploads/";
+            Path path = Paths.get(UPLOAD_DIR + fileName);
+            System.out.println(path.toAbsolutePath());
+            Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+            fillDataFromXlsx(path.toFile());
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

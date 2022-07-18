@@ -1,5 +1,6 @@
 package com.example.foodcalculator.controller;
 
+import com.example.foodcalculator.model.Food;
 import com.example.foodcalculator.service.FoodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Objects;
 
 @Controller
 public class FoodController {
@@ -107,6 +109,16 @@ public class FoodController {
         // return success response
         attributes.addFlashAttribute("message", "You successfully uploaded " + file.getName() + '!');
         return "redirect:/";
+    }
+
+    @GetMapping("/search")
+    public String searchFood(@RequestParam(name = "keyword") String keyword, Model model) {
+        if (keyword.equals("")) {
+            model.addAttribute("foods", foodService.getFoods());
+        } else {
+            model.addAttribute("foods", foodService.searchFoodByName(keyword));
+        }
+        return "index";
     }
 
 }

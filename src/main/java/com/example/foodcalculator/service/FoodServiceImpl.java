@@ -32,11 +32,7 @@ public class FoodServiceImpl implements FoodService {
     @Autowired
     public FoodServiceImpl(FoodRepository repository) throws URISyntaxException {
         this.repository = repository;
-//        URL resource = this.getClass().getResource("/data/foods.xlsx");
-//        assert resource != null;
-//        File file = new File(resource.toURI());
-////      File file = new File("D:/Documents/Exercise-Docs/foods.xlsx");
-//        fillDataFromXlsx(file);
+        fillDefaultData();
     }
 
     private Food checkArgument(String id) {
@@ -61,6 +57,14 @@ public class FoodServiceImpl implements FoodService {
     @Override
     public void removeAll() {
         cart.clear();
+    }
+
+    private void fillDefaultData() throws URISyntaxException {
+        URL resource = this.getClass().getResource("/data/foods.xlsx");
+        assert resource != null;
+        File file = new File(resource.toURI());
+//      File file = new File("D:/Documents/Exercise-Docs/foods.xlsx");
+        fillDataFromXlsx(file);
     }
 
     @Override
@@ -99,17 +103,21 @@ public class FoodServiceImpl implements FoodService {
     public void uploadDataFromXlsx(MultipartFile file) {
         // normalize the file path
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-
         // save the file on the local file system
         try {
             String UPLOAD_DIR = "uploads/";
             Path path = Paths.get(UPLOAD_DIR + fileName);
-            System.out.println(path.toAbsolutePath());
             Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
             fillDataFromXlsx(path.toFile());
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public Iterable<Food> searchFoodByName(String keyword) {
+        // 一定要加 % xx % 以符合 jpa 标准
+        return repository.findFoodsByNameLike("%"+keyword+"%");
     }
 
     @Override

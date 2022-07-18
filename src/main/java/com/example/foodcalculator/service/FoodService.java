@@ -11,6 +11,8 @@ public interface FoodService {
 
     Iterable<Food> getFoods();
 
+    Iterable<Food> searchFoodByName(String keyword);
+
     Set<Map.Entry<Food, Integer>> getCart();
 
     void addProductById(String id, int quantity);

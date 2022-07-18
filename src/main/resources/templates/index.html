@@ -41,14 +41,18 @@
         <div class="row align-items-center">
             <div class="col-lg-3">
                 <div class="brand-wrap">
-                    <img class="logo" data-th-src="@{/images/logos/squanchy.jpg}">
-                    <h2 class="logo-text">Food Counter</h2>
+                    <a href="/">
+                        <img class="logo" data-th-src="@{/images/logos/squanchy.jpg}">
+                    </a>
+                    <a href="/">
+                        <h2 class="logo-text">Food Counter</h2>
+                    </a>
                 </div> <!-- brand-wrap.// -->
             </div>
             <div class="col-lg-6 col-sm-6">
-                <form action="#" class="search-wrap">
+                <form th:action="@{/search}" class="search-wrap">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search">
+                        <input type="text" class="form-control" placeholder="Search" name="keyword">
                         <div class="input-group-append">
                             <button class="btn btn-primary" type="submit">
                                 <i class="fa fa-search"></i>
@@ -70,9 +74,9 @@
                         <a href="#" class="ml-3 icontext">
                             <form method="post" th:action="@{/upload}" enctype="multipart/form-data">
                                 <div class="form-group">
-                                    <input type="file" name="file" class="form-control-file">
+                                    <input type="file" name="file" accept=".xlsx" class="form-control-file">
                                 </div>
-                                <button type="submit" class="btn btn-primary">上传食物文件</button>
+                                <button type="submit" class="btn btn-primary">上传自定义食物表</button>
                             </form>
                         </a>
                     </div>

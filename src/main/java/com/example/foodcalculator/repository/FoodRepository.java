@@ -11,5 +11,7 @@ public interface FoodRepository extends PagingAndSortingRepository<Food, String>
 
     Optional<Food> findById(String id);
 
+    Iterable<Food> findFoodsByNameLike(String name);
+
     Iterable<Food> findAll();
 }
